@@ -1,40 +1,59 @@
 package handler
 
 import (
-	//"github.com/twn39/butterfly/cache"
+	"encoding/json"
+	"github.com/twn39/butterfly/cache"
 	"github.com/twn39/butterfly/github"
 	"github.com/twn39/butterfly/middleware"
 	"html/template"
 	"net/http"
+	"time"
 	//"time"
 )
-
-type ResponseData struct {
-	Title  string
-	Issues []github.RepoIssueResult
-}
 
 func IndexHandler(w http.ResponseWriter, r *http.Request) {
 	settings := r.Context().Value("settings").(*middleware.Settings)
 	githubClient := r.Context().Value("github").(*github.Client)
-	//cacheStorage := r.Context().Value("cache").(cache.Cache)
+	cacheStorage := r.Context().Value("cache").(cache.Cache)
 
-	issues := githubClient.GetIssues("created", "desc")
+	// get issues
+	data := cacheStorage.Get("issues", func(item *cache.Item) string {
+		item.SetExpire(600 * time.Second)
+		issues := githubClient.GetIssues("created", "desc")
+		return issues
+	})
 
-	//data := cacheStorage.Get("issues", func(item *cache.Item) string {
-	//	item.SetExpire(600 * time.Second)
-	//	return "twn39@163.com"
-	//})
+	issues := new([]github.SingleIssueResult)
+	err := json.Unmarshal([]byte(data), issues)
+	if err != nil {
+		panic(err)
+	}
+	// get users
+	user := cacheStorage.Get("users", func(item *cache.Item) string {
+		item.SetExpire(600 * time.Second)
+		result := githubClient.GetUser()
+		return result
+	})
 
-	//fmt.Printf("%s", data)
-
-	tmp, err := template.ParseFiles("views/layout.html", "views/head.html", "views/index.html")
+	userResult := new(github.UserResult)
+	err = json.Unmarshal([]byte(user), userResult)
 	if err != nil {
 		panic(err)
 	}
 
-	err = tmp.Execute(w, ResponseData{
-		Title:  settings.Site.Title,
-		Issues: issues,
+	tmp, err := template.ParseFiles("views/layout.html",
+		"views/head.html",
+		"views/index.html",
+		"views/aside.html",
+		"views/header.html")
+
+	if err != nil {
+		panic(err)
+	}
+
+	err = tmp.Execute(w, map[string]interface{}{
+		"Title":  settings.Site.Title,
+		"Issues": issues,
+		"User":   userResult,
 	})
 }

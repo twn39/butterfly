@@ -7,15 +7,25 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
 
     {{ template "head"}}
+    <link rel="stylesheet" href="/static/css/bulma.min.css">
+    <link rel="stylesheet" href="/static/css/app.css">
     <script src="/static/js/ejs.min.js"></script>
     <script src="/static/js/marked.min.js"></script>
 </head>
 <body>
 
+{{template "header"}}
+
 <div class="container">
+    <div class="main">
+        <div class="content">
+            {{template "content" .}}
+        </div>
 
-    {{template "content" .}}
-
+        <aside class="aside">
+            {{template "aside" .}}
+        </aside>
+    </div>
 </div>
 
 </body>

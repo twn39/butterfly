@@ -31,7 +31,7 @@ func NewGithubClient(owner string, repo string) *Client {
 	return &client
 }
 
-func (client *Client) GetIssues(sort string, direction string) []RepoIssueResult {
+func (client *Client) GetIssues(sort string, direction string) string {
 
 	qsData := GetIssuesQueryString{
 		Filter:    "assigned",
@@ -50,13 +50,8 @@ func (client *Client) GetIssues(sort string, direction string) []RepoIssueResult
 
 	defer res.Body.Close()
 	body, err := ioutil.ReadAll(res.Body)
-	var repoIssues []RepoIssueResult
-	err = json.Unmarshal(body, &repoIssues)
-	if err != nil {
-		panic(err)
-	}
 
-	return repoIssues
+	return string(body)
 }
 
 func (client *Client) GetSingleIssue(id string) (SingleIssueResult, error) {
@@ -70,7 +65,7 @@ func (client *Client) GetSingleIssue(id string) (SingleIssueResult, error) {
 	}
 	defer res.Body.Close()
 
-	if res.StatusCode == 404 {
+	if res.StatusCode == http.StatusNotFound {
 		return issue, errors.New("404 not found")
 	}
 
@@ -80,4 +75,19 @@ func (client *Client) GetSingleIssue(id string) (SingleIssueResult, error) {
 		panic(err)
 	}
 	return issue, nil
+}
+
+func (client *Client) GetUser() string {
+
+	url := client.BaseURL + "/users/" + client.Owner
+
+	resp, err := http.Get(url)
+	if err != nil {
+		panic(err)
+	}
+	defer resp.Body.Close()
+
+	body, err := ioutil.ReadAll(resp.Body)
+
+	return string(body)
 }
