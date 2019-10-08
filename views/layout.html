@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="zh_hans">
+<head>
+    <meta charset="UTF-8">
+    <title>{{ .Title }}</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+
+    {{ template "head"}}
+    <script src="/static/js/ejs.min.js"></script>
+    <script src="/static/js/marked.min.js"></script>
+</head>
+<body>
+
+<div class="container">
+
+    {{template "content" .}}
+
+</div>
+
+</body>
+</html>

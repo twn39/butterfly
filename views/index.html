@@ -1,0 +1,9 @@
+{{ define "content"}}
+    {{range .Issues}}
+        <div class="title">
+            <a href="/posts/{{.Number}}">
+                {{.Title}}
+            </a>
+        </div>
+    {{end}}
+{{end}}
