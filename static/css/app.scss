@@ -5,7 +5,7 @@ header {
   right: 0;
   left: 0;
   z-index: 99;
-  background: #fff;
+  background: #2e8555;
 }
 .container {
   max-width: 1040px;
@@ -20,7 +20,7 @@ header {
     h3 {
       font-size: 1.6rem;
       font-weight: bold;
-      color: #007bff;
+      color: #fff;
       font-style: italic;
     }
   }
@@ -33,27 +33,25 @@ header {
       a {
         display: inline-block;
         padding: 0 16px;
-        color: #444;
+        color: #fff;
       }
     }
   }
   .write-btn {
     a {
-      background: #007bff;
+      background: #256b44;
       padding: 6px 40px 6px 40px;
       color: #fff;
       border-radius: 3px;
       font-weight: bold;
       font-size: 16px;
-      &:hover {
-        background: #0271e8;
-      }
     }
   }
 }
 
 .main {
-  padding-top: 100px;
+  padding-top: 120px;
+  padding-bottom: 80px;
   display: flex;
   flex-direction: row;
   .content {
@@ -61,15 +59,15 @@ header {
     padding-right: 20px;
     .posts {
       .post {
-        margin-bottom: 40px;
-        padding-bottom: 40px;
+        margin-bottom: 30px;
+        padding-bottom: 30px;
         border-bottom: 1px solid rgba(0, 0, 0, 0.06);
         .title {
-          font-size: 1.2rem;
+          font-size: 1.4rem;
           margin-bottom: 14px;
           a {
-            color: #1f1f1f;
-            font-weight: normal;
+            color: #2e8555;
+            font-weight: bold;
           }
         }
         .meta {
@@ -80,6 +78,7 @@ header {
           margin-bottom: 10px;
           .user {
             label, a {
+              color: #2e8555;
               font-size: 14px;
             }
           }
@@ -92,5 +91,52 @@ header {
   }
   .aside {
     flex: 1;
+  }
+}
+
+.content article{
+  code {
+    font-family: Consolas, "Source Code Pro", "Fira Mono", "SF Mono", Monaco, Inconsolata,  "Droid Sans Mono", monospace, monospace;
+  }
+  pre {
+    padding: 0;
+    code {
+      padding: 14px;
+      border-radius: 3px;
+      font-family: Consolas, "Source Code Pro", "Fira Mono", "SF Mono", Monaco, Inconsolata,  "Droid Sans Mono", monospace, monospace;
+    }
+  }
+  h4 {
+    font-size: 1.6rem;
+  }
+
+  .article {
+    p {
+      text-align: justify;
+      line-height: 1.8rem;
+    }
+  }
+
+  blockquote {
+    background: #fff7d0;
+    border-left: 6px solid #ffe564;
+    font-style: italic;
+    code {
+      background: #ffe564;
+    }
+  }
+}
+
+
+
+footer {
+  background: #20232a;
+  .footer {
+    background: #20232a;
+    padding: 3rem 1.5rem 3rem;
+    p {
+      color: #fff;
+      text-align: center;
+    }
   }
 }

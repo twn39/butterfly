@@ -16,6 +16,7 @@
             let tmpl = document.getElementById("context").textContent;
             let HTML = marked(tmpl);
             document.querySelector(".article").innerHTML = HTML;
+            hljs.initHighlightingOnLoad();
         })()
     </script>
 {{end}}

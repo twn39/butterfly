@@ -19,7 +19,11 @@ func DetailHandler(w http.ResponseWriter, r *http.Request) {
 		w.WriteHeader(http.StatusNotFound)
 		w.Write([]byte(err.Error()))
 	} else {
-		tmp, err := template.ParseFiles("views/layout.html", "views/head.html", "views/detail.html")
+		tmp, err := template.ParseFiles("views/layout.html",
+			"views/head.html",
+			"views/header.html",
+			"views/aside.html",
+			"views/detail.html")
 		if err != nil {
 			panic(err)
 		}

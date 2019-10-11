@@ -1,0 +1,130 @@
+header {
+  border-bottom: 1px solid rgba(0, 0, 0, 0.04);
+  position: fixed;
+  top: 0;
+  right: 0;
+  left: 0;
+  z-index: 99;
+  background: #2e8555;
+}
+
+.container {
+  max-width: 1040px;
+}
+
+.header {
+  padding: 8px 0;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+}
+.header .logo h3 {
+  font-size: 1.6rem;
+  font-weight: bold;
+  color: #fff;
+  font-style: italic;
+}
+.header .top-bar {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+.header .top-bar .menus {
+  padding: 0 50px;
+}
+.header .top-bar .menus a {
+  display: inline-block;
+  padding: 0 16px;
+  color: #fff;
+}
+.header .write-btn a {
+  background: #256b44;
+  padding: 6px 40px 6px 40px;
+  color: #fff;
+  border-radius: 3px;
+  font-weight: bold;
+  font-size: 16px;
+}
+
+.main {
+  padding-top: 120px;
+  padding-bottom: 80px;
+  display: flex;
+  flex-direction: row;
+}
+.main .content {
+  flex: 4;
+  padding-right: 20px;
+}
+.main .content .posts .post {
+  margin-bottom: 30px;
+  padding-bottom: 30px;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.06);
+}
+.main .content .posts .post .title {
+  font-size: 1.4rem;
+  margin-bottom: 14px;
+}
+.main .content .posts .post .title a {
+  color: #2e8555;
+  font-weight: bold;
+}
+.main .content .posts .post .meta {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 10px;
+}
+.main .content .posts .post .meta .user label, .main .content .posts .post .meta .user a {
+  color: #2e8555;
+  font-size: 14px;
+}
+.main .content .posts .post .meta .date {
+  font-size: 12px;
+}
+.main .aside {
+  flex: 1;
+}
+
+.content article code {
+  font-family: Consolas, "Source Code Pro", "Fira Mono", "SF Mono", Monaco, Inconsolata, "Droid Sans Mono", monospace, monospace;
+}
+.content article pre {
+  padding: 0;
+}
+.content article pre code {
+  padding: 14px;
+  border-radius: 3px;
+  font-family: Consolas, "Source Code Pro", "Fira Mono", "SF Mono", Monaco, Inconsolata, "Droid Sans Mono", monospace, monospace;
+}
+.content article h4 {
+  font-size: 1.6rem;
+}
+.content article .article p {
+  text-align: justify;
+  line-height: 1.8rem;
+}
+.content article blockquote {
+  background: #fff7d0;
+  border-left: 6px solid #ffe564;
+  font-style: italic;
+}
+.content article blockquote code {
+  background: #ffe564;
+}
+
+footer {
+  background: #20232a;
+}
+footer .footer {
+  background: #20232a;
+  padding: 3rem 1.5rem 3rem;
+}
+footer .footer p {
+  color: #fff;
+  text-align: center;
+}
+
+/*# sourceMappingURL=app.css.map */
