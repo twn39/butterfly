@@ -35,7 +35,6 @@ func IndexHandler(w http.ResponseWriter, r *http.Request) {
 		issues := githubClient.GetIssues(page, "created", "desc")
 		return issues
 	})
-	fmt.Printf("%s", data)
 
 	issues := new([]github.SingleIssueResult)
 	err := json.Unmarshal([]byte(data), issues)
