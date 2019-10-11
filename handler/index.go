@@ -8,6 +8,7 @@ import (
 	"github.com/twn39/butterfly/middleware"
 	"html/template"
 	"net/http"
+	"strconv"
 	"time"
 	//"time"
 )
@@ -20,13 +21,21 @@ func IndexHandler(w http.ResponseWriter, r *http.Request) {
 	settings := r.Context().Value("settings").(*middleware.Settings)
 	githubClient := r.Context().Value("github").(*github.Client)
 	cacheStorage := r.Context().Value("cache").(cache.Cache)
+	qs := r.URL.Query()
+	var page int
+	if qs["page"] == nil {
+		page = 1
+	} else {
+		page, _ = strconv.Atoi(qs["page"][0])
+	}
 
 	// get issues
-	data := cacheStorage.Get("issues", func(item *cache.Item) string {
+	data := cacheStorage.Get("issues.page."+string(page), func(item *cache.Item) string {
 		item.SetExpire(600 * time.Second)
-		issues := githubClient.GetIssues("created", "desc")
+		issues := githubClient.GetIssues(page, "created", "desc")
 		return issues
 	})
+	fmt.Printf("%s", data)
 
 	issues := new([]github.SingleIssueResult)
 	err := json.Unmarshal([]byte(data), issues)
@@ -45,11 +54,21 @@ func IndexHandler(w http.ResponseWriter, r *http.Request) {
 	if err != nil {
 		panic(err)
 	}
-	fmt.Printf("%v", userResult)
 
 	funcMap := template.FuncMap{
 		"slice": func(data string) string {
-			return string([]rune(data)[0:320])
+			strLen := len([]rune(data))
+			if strLen > 320 {
+				return string([]rune(data)[0:320])
+			}
+
+			return data
+		},
+		"div": func(num int) int {
+			return num - 1
+		},
+		"add": func(num int) int {
+			return num + 1
 		},
 	}
 	tmpl, err := template.New("layout.html").Funcs(funcMap).ParseFiles("views/layout.html",
@@ -61,9 +80,12 @@ func IndexHandler(w http.ResponseWriter, r *http.Request) {
 		panic(err)
 	}
 
+	fmt.Printf("%d", page)
+
 	err = tmpl.ExecuteTemplate(w, "layout.html", map[string]interface{}{
 		"Title":  settings.Site.Title,
 		"Issues": issues,
 		"User":   userResult,
+		"Page":   page,
 	})
 }

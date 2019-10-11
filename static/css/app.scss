@@ -133,7 +133,17 @@ header {
   }
 }
 
-
+.paginator {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  a {
+    background: #2e8555;
+    color: #fff;
+    padding: 6px 26px;
+    border-radius: 3px;
+  }
+}
 
 footer {
   background: #20232a;

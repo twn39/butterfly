@@ -20,6 +20,7 @@ type GetIssuesQueryString struct {
 	State     string `url:"state"`
 	Sort      string `url:"sort"`
 	Direction string `url:"direction"`
+	Page      int    `url:"page"`
 }
 
 func NewGithubClient(owner string, repo string) *Client {
@@ -31,13 +32,14 @@ func NewGithubClient(owner string, repo string) *Client {
 	return &client
 }
 
-func (client *Client) GetIssues(sort string, direction string) string {
+func (client *Client) GetIssues(page int, sort string, direction string) string {
 
 	qsData := GetIssuesQueryString{
 		Filter:    "assigned",
 		State:     "open",
 		Sort:      sort,
 		Direction: direction,
+		Page:      page,
 	}
 	qs, _ := query.Values(qsData)
 	url := client.BaseURL + "/repos/" + client.Owner + "/" + client.Repo + "/issues" + "?" + qs.Encode()

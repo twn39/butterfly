@@ -25,11 +25,16 @@
         {{end}}
     </div>
 
-    <script>
+    <div class="paginator">
+        <div class="previous">
+            {{if gt .Page 1}}
+            <a href='/?page={{div .Page}}'>上一页</a>
+            {{end}}
+        </div>
 
-        let tmpl = document.getElementById("context").textContent;
-        let HTML = marked(tmpl);
-        document.querySelector(".article").innerHTML = HTML;
-    </script>
+        <div class="next">
+            <a href='/?page={{add .Page}}'>下一页</a>
+        </div>
+    </div>
 
 {{end}}
