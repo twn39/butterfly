@@ -56,5 +56,5 @@ func main() {
 	route.Use(middleware.GithubClientClientMiddleWare(settings.Github.Owner, settings.Github.Repo))
 	ServerStatic(route)
 
-	log.Fatal(http.ListenAndServe(":8080", route))
+	log.Fatal(http.ListenAndServe(settings.Server.Host+":"+settings.Server.Port, route))
 }

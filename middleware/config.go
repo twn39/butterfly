@@ -6,6 +6,10 @@ import (
 )
 
 type Settings struct {
+	Server struct {
+		Host string
+		Port string
+	}
 	Logger struct {
 		Path  string
 		Level int
