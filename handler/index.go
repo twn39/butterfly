@@ -2,6 +2,7 @@ package handler
 
 import (
 	"encoding/json"
+	"fmt"
 	"github.com/twn39/butterfly/cache"
 	"github.com/twn39/butterfly/github"
 	"github.com/twn39/butterfly/middleware"
@@ -10,6 +11,10 @@ import (
 	"time"
 	//"time"
 )
+
+func slice(data string) string {
+	return data
+}
 
 func IndexHandler(w http.ResponseWriter, r *http.Request) {
 	settings := r.Context().Value("settings").(*middleware.Settings)
@@ -40,18 +45,23 @@ func IndexHandler(w http.ResponseWriter, r *http.Request) {
 	if err != nil {
 		panic(err)
 	}
+	fmt.Printf("%v", userResult)
 
-	tmp, err := template.ParseFiles("views/layout.html",
+	funcMap := template.FuncMap{
+		"slice": func(data string) string {
+			return string([]rune(data)[0:320])
+		},
+	}
+	tmpl, err := template.New("layout.html").Funcs(funcMap).ParseFiles("views/layout.html",
 		"views/head.html",
-		"views/index.html",
 		"views/aside.html",
+		"views/index.html",
 		"views/header.html")
-
 	if err != nil {
 		panic(err)
 	}
 
-	err = tmp.Execute(w, map[string]interface{}{
+	err = tmpl.ExecuteTemplate(w, "layout.html", map[string]interface{}{
 		"Title":  settings.Site.Title,
 		"Issues": issues,
 		"User":   userResult,

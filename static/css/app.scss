@@ -70,6 +70,10 @@ header {
             font-weight: bold;
           }
         }
+        .info {
+          text-align: justify;
+          line-height: 1.8rem;
+        }
         .meta {
           display: flex;
           flex-direction: row;
@@ -78,8 +82,10 @@ header {
           margin-bottom: 10px;
           .user {
             label, a {
-              color: #2e8555;
               font-size: 14px;
+            }
+            a {
+              color: #2e8555;
             }
           }
           .date {

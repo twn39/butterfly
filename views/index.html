@@ -12,17 +12,24 @@
                 <div class="meta">
                     <div class="user">
                         <label for="">作者：</label>
-                        <a href="">Twn39</a>
+                        <a href="{{.User.HtmlUrl}}">Twn39</a>
                     </div>
                     <div class="date">{{.CreatedAt}}</div>
                 </div>
 
                 <div class="info">
-                    是的格式发给对方撒旦发射点
+                    {{ printf "%q" .Body | slice }}
                 </div>
 
             </div>
         {{end}}
     </div>
+
+    <script>
+
+        let tmpl = document.getElementById("context").textContent;
+        let HTML = marked(tmpl);
+        document.querySelector(".article").innerHTML = HTML;
+    </script>
 
 {{end}}

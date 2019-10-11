@@ -70,6 +70,10 @@ header {
   color: #2e8555;
   font-weight: bold;
 }
+.main .content .posts .post .info {
+  text-align: justify;
+  line-height: 1.8rem;
+}
 .main .content .posts .post .meta {
   display: flex;
   flex-direction: row;
@@ -78,8 +82,10 @@ header {
   margin-bottom: 10px;
 }
 .main .content .posts .post .meta .user label, .main .content .posts .post .meta .user a {
-  color: #2e8555;
   font-size: 14px;
+}
+.main .content .posts .post .meta .user a {
+  color: #2e8555;
 }
 .main .content .posts .post .meta .date {
   font-size: 12px;
